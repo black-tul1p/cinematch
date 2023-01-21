@@ -1,8 +1,10 @@
 import { useState } from "react"
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import { collection, addDoc } from "firebase/firestore"; 
 
 
-import { AuthContext } from "./AuthContext"
+import { AuthContext } from "./AuthContext";
+import { FireStoreDB } from "../main";
 
 
 export default function AuthProvider({ children }) {
@@ -15,11 +17,8 @@ export default function AuthProvider({ children }) {
 
 
   const loginUser = () => {
-
-    alert('login triggered')
-
     signInWithPopup(auth, provider)
-  .then((result) => {
+  .then( async (result) => {
     // This gives you a Google Access Token. You can use it to access the Google API.
     const credential = GoogleAuthProvider.credentialFromResult(result);
     const token = credential.accessToken;
@@ -28,6 +27,19 @@ export default function AuthProvider({ children }) {
     
     // set user
     setUser(user);
+
+    // create a user in the database if doesnt exist
+    // if exists, it overwrites
+
+    const docRef = await addDoc(collection(FireStoreDB, "users"), {
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      uid: user.uid
+    })
+
+    console.log("Document written with ID: ", docRef.id);
+
+
 
   }).catch((error) => {
     console.error(error)
@@ -39,6 +51,9 @@ export default function AuthProvider({ children }) {
     const email = error.customData.email;
     // The AuthCredential type that was used.
     const credential = GoogleAuthProvider.credentialFromError(error);
+
+    
+
   });
   }
 

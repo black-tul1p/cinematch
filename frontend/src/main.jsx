@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDSMyX2ReENydlXZzzKtL9YJYouEnl2LiI",
@@ -21,8 +22,12 @@ import AuthProvider from "./components/AuthProvider";
 import ProtectedRoute from "./components/ProtectedRoute";
 import WatchList from "./pages/WatchList";
 
+import './App.css';
+import './index.css'
+
 // Initialize Firebase
 const FirebaseApp = initializeApp(firebaseConfig);
+const FireStoreDB = getFirestore(FirebaseApp);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -47,4 +52,4 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   </React.StrictMode>
 );
 
-export { FirebaseApp };
+export { FirebaseApp, FireStoreDB };
