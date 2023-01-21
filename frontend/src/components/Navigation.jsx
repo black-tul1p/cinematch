@@ -1,7 +1,14 @@
+import { NavLink } from "react-router-dom"
+
+import Login from "../pages/Login"
+
+
 export default function Navigation() {
   return (
     <>
-      <div>This is the nav</div>
+      <div>
+        <NavLink to="login">Login</NavLink>
+      </div>
     </>
   )
 }
