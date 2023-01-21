@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { initializeApp } from "firebase/app";
+import Home from './pages/Home';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDSMyX2ReENydlXZzzKtL9YJYouEnl2LiI",
@@ -39,7 +40,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               </ProtectedRoute>
             }
           />
-        </Routes>
+          <Route path='/home' element={<Home />} />
+      </Routes>
       </BrowserRouter>
     </AuthProvider>
   </React.StrictMode>
