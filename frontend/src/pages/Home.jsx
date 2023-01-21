@@ -13,6 +13,7 @@ export default function Home() {
     "The Office",
   ]);
 
+
   // Hard coded for now
   // const [pop, setPop] = useState([]);
   const [pop, setPop] = useState([
@@ -25,7 +26,7 @@ export default function Home() {
 
   // TODO: Finish API and complete this
   const fetchWatched = () => {
-
+      
   };
 
   // TODO: Finish API and complete this
@@ -39,7 +40,7 @@ export default function Home() {
         <div className="Home-box">
           <div>
             <h1>Collect More</h1>
-            <SearchBar />
+            <SearchBar setShows={setShows}/>
           </div>
           <div>
             <h1> Popular Right Now</h1>
