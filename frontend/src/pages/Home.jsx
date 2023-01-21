@@ -1,5 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { collection, query, where, getDocs } from "firebase/firestore";
+
 import SearchBar from "../components/SearchBar";
+import { AuthContext } from "../components/AuthContext";
+import { FireStoreDB } from "../main";
 
 export default function Home() {
   // Hard coded for now
@@ -13,6 +17,8 @@ export default function Home() {
     "The Office",
   ]);
 
+  const { user } = useContext(AuthContext)
+
 
   // Hard coded for now
   // const [pop, setPop] = useState([]);
@@ -25,14 +31,27 @@ export default function Home() {
   ]);
 
   // TODO: Finish API and complete this
-  const fetchWatched = () => {
-      
+  const fetchWatched =  async () => {
+      const q = query(collection(FireStoreDB, `users/${user.uid}/movies`))
+      const querySnapshot = await getDocs(q)
+      const showArr = []
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+        showArr.push(doc.data().title)
+      })
+
+      setShows(showArr)
+
   };
 
   // TODO: Finish API and complete this
   const fetchPopular = () => {
 
   };
+
+  useEffect(() => {
+    fetchWatched();
+  }, [])
 
   return (
     <>
