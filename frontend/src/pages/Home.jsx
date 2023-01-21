@@ -59,7 +59,7 @@ export default function Home() {
         <div className="Home-box">
           <div>
             <h1>Collect More</h1>
-            <SearchBar setShows={setShows}/>
+            <SearchBar/>
           </div>
           <div>
             <h1> Popular Right Now</h1>
