@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
-import { collection, addDoc } from "firebase/firestore"; 
+import { doc, setDoc } from "firebase/firestore"; 
 
 
 import { AuthContext } from "./AuthContext";
@@ -31,19 +31,16 @@ export default function AuthProvider({ children }) {
     // create a user in the database if doesnt exist
     // if exists, it overwrites
 
-    const docRef = await addDoc(collection(FireStoreDB, "users"), {
+    const docRef = await setDoc(doc(FireStoreDB, "users", user.uid), {
       displayName: user.displayName,
       photoURL: user.photoURL,
-      uid: user.uid
+      uid: user.uid,
+      email: user.email
     })
-
-    console.log("Document written with ID: ", docRef.id);
-
 
 
   }).catch((error) => {
-    console.error(error)
-    setError(error)
+    console.log(error)
     // Handle Errors here.
     const errorCode = error.code;
     const errorMessage = error.message;
@@ -51,8 +48,6 @@ export default function AuthProvider({ children }) {
     const email = error.customData.email;
     // The AuthCredential type that was used.
     const credential = GoogleAuthProvider.credentialFromError(error);
-
-    
 
   });
   }
