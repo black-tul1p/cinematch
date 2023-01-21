@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { initializeApp } from "firebase/app";
+import "./index.css";
+import "./App.css";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDSMyX2ReENydlXZzzKtL9YJYouEnl2LiI",
