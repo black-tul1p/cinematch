@@ -34,7 +34,6 @@ export default function Home() {
 
   };
 
-  const [collabs, setCollabs] = useState("");
 
   return (
     <>
@@ -42,7 +41,7 @@ export default function Home() {
         <div className="Home-box">
           <div>
             <h1>Collect More</h1>
-            <SearchBar setCollabs={setCollabs} />
+            <SearchBar/>
           </div>
           <div>
             <h1> Popular Right Now</h1>
