@@ -22,7 +22,6 @@ import Login from "./pages/Login";
 import Home from './pages/Home';
 import AuthProvider from "./components/AuthProvider";
 import ProtectedRoute from "./components/ProtectedRoute";
-import WatchList from "./pages/WatchList";
 
 import './App.css';
 import './index.css'
