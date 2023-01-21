@@ -42,7 +42,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             path="/watchlist"
             element={
               <ProtectedRoute>
-                <WatchList />
               </ProtectedRoute>
             }
           />
