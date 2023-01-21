@@ -11,6 +11,7 @@ import './index.css'
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import Login from './pages/Login';
+import Home from './pages/Home';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDSMyX2ReENydlXZzzKtL9YJYouEnl2LiI",
@@ -33,6 +34,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Routes>
         <Route path='/' element={<App />}/>
         <Route path='/login' element={<Login />} />
+        <Route path='/home' element={<Home />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
