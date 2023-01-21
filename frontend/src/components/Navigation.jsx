@@ -7,7 +7,7 @@ export default function Navigation() {
   return (
     <>
       <br/>
-      <div style={{ display: "flex", justifyContent: "space-around" }}>
+      <div style={{ display: "flex", justifyContent: "space-around"}}>
         <NavLink to="login">Login</NavLink>
         <NavLink to="home">Home</NavLink>
       </div>
