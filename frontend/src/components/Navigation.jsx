@@ -8,6 +8,7 @@ export default function Navigation() {
     <>
       <div>
         <NavLink to="login">Login</NavLink>
+        <NavLink to="watchlist">Watchlist</NavLink>
       </div>
     </>
   )
