@@ -14,6 +14,54 @@ h1 {
     font-family: 'Open Sans', sans-serif;
 }
 
+/*------------------------- Nav Bar -------------------------*/
+
+.Navbar {
+    display: grid;
+    padding-top: 0.25em;
+    grid-template-columns: 3fr 5fr 4fr;
+    justify-content: center;
+    align-items: center;
+}
+
+.Logo-main {
+    margin: 0em 1em 0em;
+    font-size: 2em;
+    font-family: "AnandaRegular";
+    color: aqua;
+}
+
+.Nav-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.Nav-button {
+    padding: 0;
+    border: none;
+    color: aqua;
+    background: none;
+    text-decoration: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.Nav-clickable {
+    transition: transform 0.1s;
+}
+
+.Nav-clickable:hover {
+    transform: scale(1.05);
+}
+
+.Icon-button {
+    margin-top: 0;
+    color: aqua;
+    width: 3em;
+}
+
 /*------------------------- Home Page -------------------------*/
 
 .Home-content {
@@ -56,6 +104,7 @@ h1 {
 /* Right Box */
 
 .Watch-list {
+    padding: 0;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1.5em;
@@ -74,7 +123,7 @@ h1 {
 }
 
 .Watch-list > li:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 /*------------------------- Search Bar -------------------------*/
