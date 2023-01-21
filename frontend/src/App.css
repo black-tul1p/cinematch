@@ -1,10 +1,11 @@
 :root {
     background: linear-gradient(to right, #ad5389, #3c1053);
+    --white-semi-bg: rgba(255, 255, 255, 0.15);
 }
 
 div {
     /* For debugging CSS */
-    border: thin solid gray;
+    /* border: thin solid gray; */
     color: white;
 }
 
@@ -13,20 +14,46 @@ h1 {
     font-family: "AnandaRegular";
 }
 
-/* HOME PAGE */
+/*------------------------- Home Page -------------------------*/
 
 .Home-content {
-    /* background-color: white; */
     display: grid;
     grid-template-columns: repeat(2, 1fr);
 }
 
 .Home-box {
-    /* background-color: white; */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-rows: 0.15fr 0.85fr;
+    justify-content: center;
+    text-align: center;
+    gap: 2em;
 }
+
+/* Left Box */
+
+.Pop-list {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2em;
+}
+
+.Pop-list > p {
+    margin-bottom: 0.75em;
+    padding: 0.5em;
+    border: 1px solid rgba(0,0,0,0);
+    border-radius: 20em;
+    text-align: center;
+    list-style: none;
+    background-color: var(--white-semi-bg);
+    transition: transform 0.15s;
+}
+
+.Pop-list > p:hover {
+    background: none;
+    border: thin solid white;
+}
+
+/* Right Box */
 
 .Watch-list {
     color: white;
@@ -35,16 +62,40 @@ h1 {
 }
 
 .Watch-list > li {
-    margin: 0.75em;
+    margin-bottom: 0.75em;
     padding: 0.5em;
     border: 2px solid white;
-    border-radius: 10em;
+    border-radius: 20em;
     text-align: center;
     list-style: none;
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: var(--white-semi-bg);
     transition: transform 0.15s;
 }
 
 .Watch-list > li:hover {
     transform: scale(1.1);
+}
+
+/*------------------------- Search Bar -------------------------*/
+
+.Search-input {
+    width: 30vw;
+    padding: 0.5em 1em;
+    border: 1px solid white;
+    border-radius: 20em 0px 0px 20em;
+    background: var(--white-semi-bg);
+    font-size: 1em;
+}
+
+.Search-bar button {
+    padding: 0.5em 0.5em 0.5em 0.25em;
+    border: 1px solid white;
+    border-radius: 0em 20px 20px 0em;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+::placeholder {
+    color: white;
+    opacity: 1; /* Firefox fix */
 }
