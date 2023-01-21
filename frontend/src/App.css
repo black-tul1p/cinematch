@@ -1,0 +1,50 @@
+:root {
+    background: linear-gradient(to right, #ad5389, #3c1053);
+}
+
+div {
+    /* For debugging CSS */
+    border: thin solid gray;
+    color: white;
+}
+
+h1 {
+    color: white;
+    font-family: "AnandaRegular";
+}
+
+/* HOME PAGE */
+
+.Home-content {
+    /* background-color: white; */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.Home-box {
+    /* background-color: white; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Watch-list {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.5em;
+}
+
+.Watch-list > li {
+    margin: 0.75em;
+    padding: 0.5em;
+    border: 2px solid white;
+    border-radius: 10em;
+    text-align: center;
+    list-style: none;
+    background-color: rgba(255, 255, 255, 0.15);
+    transition: transform 0.15s;
+}
+
+.Watch-list > li:hover {
+    transform: scale(1.1);
+}
