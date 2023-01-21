@@ -9,6 +9,7 @@ export default function Navigation() {
       <br/>
       <div style={{ display: "flex", justifyContent: "space-around"}}>
         <NavLink to="login">Login</NavLink>
+        <NavLink to="watchlist">Watchlist</NavLink>
         <NavLink to="home">Home</NavLink>
       </div>
       <br/>
