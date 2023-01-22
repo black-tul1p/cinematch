@@ -1,6 +1,7 @@
 :root {
     background: #171616;
     --white-semi-bg: rgba(255, 255, 255, 0.15);
+    font-size: 14px;
 }
 
 div {
@@ -35,9 +36,9 @@ h1 {
 
 .Login-button:hover {
     opacity: 1;
-    width: 10em;
-    height: 3em;
-    background-color: #f25555;
+    /* width: 10em;
+    height: 3em; */
+    /* background-color: #f25555; */
     border-width: 1px;
     color: #f5eeed;
     font: sans-serif;
@@ -60,6 +61,7 @@ h1 {
 .Navbar {
     display: grid;
     padding-top: 0.25em;
+    margin-bottom: 1.5rem;
     grid-template-columns: 3fr 5fr 4fr;
     justify-content: center;
     align-items: center;
@@ -74,36 +76,39 @@ h1 {
     color: #f25555;
 }
 
+.Logo-main > h1 {
+  text-decoration: none;
+  border: none;
+
+}
+
 .Nav-buttons {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     border-radius: 2px;
-    
 }
 
 .Nav-button {
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
     width: 10em;
-    height: 3em;
-    background-color: #f25555;
-    border-width: 1px;
+    height: 2.3em;
+    border: none;
     color: #f5eeed;
     background: none;
     text-decoration: none; 
-    font-size: 1em;
+    font-size: 1.4rem;
     cursor: pointer;
     padding-top: 5px;
     border-radius: 2px;
+    font-family: 'Open Sans', sans-serif;
     
 }
 
 .Nav-clickable {
     transition: transform 0.1s;
-    background-color: #f25555;
-    font-size: 30px;
-    font-family: 'Open Sans', sans-serif;
-    border-radius: 2px;
-    
 }
 
 .Nav-clickable:hover {
