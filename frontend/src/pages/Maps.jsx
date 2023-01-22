@@ -17,29 +17,33 @@ export default function Maps() {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: key,
   });
-
-  if (!isLoaded) return <div>Loading...</div>;
-  return <Map />;
-}
-
-function Map() {
-  const { user } = useContext(AuthContext);
   const [currPos, setCurrPos] = useState({}); // Your position on the map
-  // const [selected, setSelected] = useState(null); // Selected Marker
-  const [markers, setMarkers] = useState([
-  ]);
 
   // Function that gets your location
   const getCurrPos = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        setCurrPos({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
+        const newPos = {
+          lat: Math.round(position.coords.latitude),
+          lng: Math.round(position.coords.longitude),
+        };
+        if (newPos != currPos) setCurrPos(newPos);
       });
     }
+    console.log(currPos);
   };
+  getCurrPos();
+
+  if (!isLoaded) return <div>Loading...</div>;
+  return <Map currPos={currPos} />;
+}
+
+function Map({ currPos }) {
+  const { user } = useContext(AuthContext);
+  // const [selected, setSelected] = useState(null); // Selected Marker
+  const [markers, setMarkers] = useState([]);
+  const center = currPos;
+  // const center = useMemo(() => currPos, []);
 
   const fetchMarkers = async () => {
     const q = query(
@@ -70,23 +74,18 @@ function Map() {
         };
       })
     );
-    console.log("BRUH");
-    console.log(markerArr)
+    // console.log("BRUH");
+    // console.log(markerArr);
     setMarkers(markerArr);
   };
 
   // Get your location
-  getCurrPos();
   useEffect(() => {
     fetchMarkers();
   }, []);
 
   return (
-    <GoogleMap
-      zoom={4.5}
-      center={currPos}
-      mapContainerClassName="Map-container"
-    >
+    <GoogleMap zoom={4.5} center={center} mapContainerClassName="Map-container">
       {/* {selected && (
         <InfoWindow
           onCloseClick={() => {
@@ -114,14 +113,13 @@ function Map() {
           />
         )
       )}
-      {/* <MarkerF // YOUR MARKER
+      <MarkerF // YOUR MARKER
         position={currPos}
         // For clicking marker (not currently working)
         onClick={() => {
           setSelected(currPos);
-          console.log(currPos);
         }}
-      /> */}
+      />
     </GoogleMap>
   );
 }
