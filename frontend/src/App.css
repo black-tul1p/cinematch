@@ -1,17 +1,16 @@
 :root {
-    background: linear-gradient(to right, #ad5389, #3c1053);
+    background: #171616;
     --white-semi-bg: rgba(255, 255, 255, 0.15);
 }
 
 div {
     /* For debugging CSS */
     /* border: thin solid gray; */
-    color: white;
 }
 
 h1 {
-    color: white;
     font-family: 'Open Sans', sans-serif;
+    color: #f25555;
 }
 
 
@@ -23,13 +22,19 @@ h1 {
     justify-content: center;
     align-items: center;
     height: 80vh;
+    color: #f25555
 } 
 
 .Login-button {
     opacity: 1;
-    width: 7em;
+    width: 10em;
     height: 3em;
-    
+    background-color: #f25555;
+    border-width: 1px;
+    color: #f5eeed;
+    font: sans-serif;
+    font-size: 40;
+    border-color: white;
     
 }
 
@@ -38,6 +43,7 @@ h1 {
     height: 30px;
     justify-content: left;
     padding-left: 10px;
+    color: #f5eeed;
     
 }
 
@@ -49,34 +55,47 @@ h1 {
     grid-template-columns: 3fr 5fr 4fr;
     justify-content: center;
     align-items: center;
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 2px;
 }
 
 .Logo-main {
     margin: 0em 1em 0em;
     font-size: 2em;
     font-family: "AnandaRegular";
-    color: aqua;
+    color: #f25555;
 }
 
 .Nav-buttons {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    border-radius: 2px;
+    
 }
 
 .Nav-button {
-    padding: 0;
-    border: none;
-    color: aqua;
+    width: 10em;
+    height: 3em;
+    background-color: #f25555;
+    border-width: 1px;
+    color: #f5eeed;
     background: none;
-    text-decoration: none;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-decoration: none; 
     font-size: 1em;
     cursor: pointer;
+    padding-top: 5px;
+    border-radius: 2px;
+    
 }
 
 .Nav-clickable {
     transition: transform 0.1s;
+    background-color: #f25555;
+    font-size: 30px;
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 2px;
+    
 }
 
 .Nav-clickable:hover {
@@ -85,7 +104,7 @@ h1 {
 
 .Icon-button {
     margin-top: 0;
-    color: aqua;
+    color: #f25555;
     width: 3em;
 }
 
@@ -140,6 +159,7 @@ h1 {
     font-size: 1.5em;
     max-height: 70vh;
     overflow-y: auto;
+    color: #f25555
 }
 
 @media (min-width: 400px) {
@@ -244,20 +264,21 @@ h1 {
     flex-direction: column;
     flex-wrap: wrap;
     column-gap: 1em;
-    background-color: white;
+    background-color: f5eeed;
     border-radius: 1em;
     margin-top: 0.3em;
     overflow: hidden;
+    color: #171616
 }
 
-.Search-result {
+.submit-search {
     height: 3.5em;
     cursor: pointer;
     border: 1px solid rgba(0,0,0,0.05);
 }
 
-.Search-result:hover {
-    background-color: rgba(255,255,255,0.85);
+.submit-search:hover {
+    background-color: #f25555;
 }
 
 ::placeholder {
@@ -272,3 +293,16 @@ h1 {
     height: 89.5vh;
     border-radius: 1em;
   }
+
+/*------------------------Chat Room --------------------------*/
+.Chat-message {
+    color: #f5eeed;
+}
+
+.Chat-input {
+    background-color: gray;
+}
+
+.Submit-button {
+    background-color: #f25555;
+}
