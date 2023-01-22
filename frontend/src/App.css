@@ -142,9 +142,9 @@ h1 {
     overflow-y: auto;
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 400px) {
     .Watch-list {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(1, 1fr);
     }
 }
 
@@ -154,9 +154,9 @@ h1 {
     }
 }
 
-@media (min-width: 400px) {
+@media (min-width: 1000px) {
     .Watch-list {
-        grid-template-columns: repeat(1, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
