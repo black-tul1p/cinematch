@@ -81,6 +81,7 @@ export default function MovieItem({ title, year, type, poster, handleOpen }) {
           movie: title,
           user1: user.uid,
           user2: user2.uid,
+          location: user2.location
         }
       ).catch((error) => console.error(error));
 
