@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, orderBy } from "firebase/firestore";
 import "./index.css";
 import "./App.css";
 
@@ -23,7 +23,7 @@ import Home from './pages/Home';
 import Maps from "./pages/Maps";
 import AuthProvider from "./components/AuthProvider";
 import ProtectedRoute from "./components/ProtectedRoute";
-import WatchList from "./pages/WatchList";
+import ChatRoom from "./pages/ChatRoom";
 
 // Initialize Firebase
 const FirebaseApp = initializeApp(firebaseConfig);
@@ -38,16 +38,24 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/" element={<App />} />
           <Route path="/login" element={<Login />} />
           <Route
-            path="/watchlist"
+            path="/home"
             element={
               <ProtectedRoute>
-                <WatchList />
+                <Home />
               </ProtectedRoute>
             }
           />
-          <Route path='/home' element={<Home />} />
-          <Route path='/cinemap' element={<Maps />} />
-      </Routes>
+          <Route path='/cinemap' element={
+            <ProtectedRoute>
+              <Maps />
+            </ProtectedRoute>
+            } />
+          <Route path="/chat" element={
+            <ProtectedRoute>
+              <ChatRoom />
+            </ProtectedRoute>
+          } />
+        </Routes
       </BrowserRouter>
     </AuthProvider>
   </React.StrictMode>
