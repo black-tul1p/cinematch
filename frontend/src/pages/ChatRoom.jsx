@@ -96,19 +96,25 @@ export default function ChatRoom({ roomID }) {
             {messages &&
               messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
           </div>
-        </div>
-
-        <form onSubmit={sendMessage}>
-          <input
-            type="text"
-            value={inputVal}
-            onChange={(e) => {
-              setInputVal(e.target.value);
+          <form
+            onSubmit={sendMessage}
+            style={{
+              marginBottom: "1em",
             }}
-            className="Msg-box"
-          />
-          <button type="submit">🎡</button>
-        </form>
+          >
+            <input
+              type="text"
+              value={inputVal}
+              onChange={(e) => {
+                setInputVal(e.target.value);
+              }}
+              className="Msg-box"
+            />
+            <button type="submit" className="Send-button">
+              🎡
+            </button>
+          </form>
+        </div>
       </div>
     </>
   );
