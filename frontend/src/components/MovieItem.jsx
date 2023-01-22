@@ -8,6 +8,7 @@ import {
   addDoc,
   Firestore,
   orderBy,
+  limit,
 } from "firebase/firestore";
 import { FireStoreDB } from "../main";
 import { GeoPoint } from "firebase/firestore";
@@ -76,7 +77,7 @@ export default function MovieItem({ title, year, type, poster, handleOpen }) {
         user2: doc.data().uid
       })
 
-      // we have to set isPaired to true for the both users in the movie collection
+      // we have to set isPaired to true for the both users in the movie collection`
 
       await setDoc(doc(FireStoreDB, `movies/${title}/users/${user.uid}`), {
         isPaired: true
