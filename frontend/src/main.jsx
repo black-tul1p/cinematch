@@ -5,7 +5,6 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, orderBy } from "firebase/firestore";
 import "./index.css";
 import "./App.css";
-import "@picocss/pico";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDSMyX2ReENydlXZzzKtL9YJYouEnl2LiI",
