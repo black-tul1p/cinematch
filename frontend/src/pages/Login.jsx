@@ -15,7 +15,7 @@ export default function Login() {
   return (
     <div className="Login-page">
       <button onClick={handleLogin} className="Login-button" role="button">
-        Login with Google
+        Login
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="currentColor"
