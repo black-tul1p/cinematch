@@ -24,19 +24,11 @@ export default function MovieItem({ title, year, type, poster, handleOpen }) {
     const usersRef = collection(FireStoreDB, "users");
     const q = query(
       usersRef,
-
       where("email", "==", "daksheshgupta03@gmail.com")
     );
     // const q = query(usersRef, where("email", "==", `${user.email}`));
 
     // Adds user to users/uid/movies
-    let docID = "";
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data());
-      docID = doc.id;
-    });
-
     await setDoc(doc(FireStoreDB, `users/${user.uid}/movies/` + title), {
       poster: poster,
       title: title,
@@ -71,22 +63,26 @@ export default function MovieItem({ title, year, type, poster, handleOpen }) {
     const chatPairingQuery = query(
       collection(FireStoreDB, `movies/${title}/users`),
       where("isPaired", "==", false),
+      where("uid", "!=", `${user.uid}`),
       limit(1)
     );
 
     const chatPairingQuerySnapshot = await getDocs(chatPairingQuery);
-    chatPairingQuerySnapshot.forEach(async (doc) => {
-      console.log(doc.id, " => ", doc.data());
+    chatPairingQuerySnapshot.forEach(async (document) => {
+      console.log(document.id, " => ", document.data());
+
+      const user2 = document.data();
+      console.log(user2);
 
       // create a chatroom with logged in user, and the one just retrieved
       await setDoc(
-        doc(FireStoreDB, `chatrooms/${title}${user.uid}${doc.data().uid}`),
+        doc(FireStoreDB, `chatrooms/${title}${user.uid}${user2.uid}`),
         {
           movie: title,
           user1: user.uid,
-          user2: doc.data().uid,
+          user2: user2.uid,
         }
-      );
+      ).catch((error) => console.error(error));
 
       // we have to set isPaired to true for the both users in the movie collection`
 
@@ -99,7 +95,7 @@ export default function MovieItem({ title, year, type, poster, handleOpen }) {
       );
 
       await setDoc(
-        doc(FireStoreDB, `movies/${title}/users/${doc.data().uid}`),
+        doc(FireStoreDB, `movies/${title}/users/${user2.uid}`),
         {
           isPaired: true,
         },
@@ -110,9 +106,5 @@ export default function MovieItem({ title, year, type, poster, handleOpen }) {
     handleOpen();
   };
 
-  return (
-    <button onClick={handleClick} className="Search-result">
-      {title}
-    </button>
-  );
+  return <button onClick={handleClick}>{title}</button>;
 }
