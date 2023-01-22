@@ -20,12 +20,10 @@ import Navigation from "./components/Navigation";
 import App from "./App";
 import Login from "./pages/Login";
 import Home from './pages/Home';
+import Maps from "./pages/Maps";
 import AuthProvider from "./components/AuthProvider";
 import ProtectedRoute from "./components/ProtectedRoute";
 import WatchList from "./pages/WatchList";
-
-import './App.css';
-import './index.css'
 
 // Initialize Firebase
 const FirebaseApp = initializeApp(firebaseConfig);
@@ -48,6 +46,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             }
           />
           <Route path='/home' element={<Home />} />
+          <Route path='/cinemap' element={<Maps />} />
       </Routes>
       </BrowserRouter>
     </AuthProvider>

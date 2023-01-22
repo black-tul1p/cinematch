@@ -149,3 +149,9 @@ h1 {
     color: white;
     opacity: 1; /* Firefox fix */
 }
+
+
+.Map-container {
+    width: 100%;
+    height: 90vh;
+  }
