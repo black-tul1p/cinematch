@@ -11,11 +11,7 @@ import { query, collection, where, getDocs } from "firebase/firestore";
 
 import { FireStoreDB } from "../main";
 
-
 export default function Maps() {
-
-  
-
   // Load API
   const key = "AIzaSyB7Iv5iPStyCWSsPkPHQVjiZ0vPWG0aslc";
   const { isLoaded } = useLoadScript({
@@ -27,6 +23,7 @@ export default function Maps() {
 }
 
 function Map() {
+  const { user } = useContext(AuthContext);
   const [currPos, setCurrPos] = useState({}); // Your position on the map
   const [selected, setSelected] = useState(null); // Selected Marker
   const [markers, setMarkers] = useState([
@@ -50,39 +47,44 @@ function Map() {
     }
   };
 
-  
-
   const fetchMarkers = async () => {
-
-    const { user } = useContext(AuthContext)
-
-    const q = query(collection(FireStoreDB, `chatrooms/`), where("user1", "==", `${user.uid}`))
+    const q = query(
+      collection(FireStoreDB, `chatrooms/`),
+      where("user1", "==", `${user.uid}`)
+    );
     const querySnapshot = await getDocs(q);
 
-    const markerArr = querySnapshot.docs.map(doc => {
-      console.log(doc)
+    const markerArr = querySnapshot.docs.map((doc) => {
+      console.log(doc);
       return {
         lat: doc.location.getLatitude(),
         lng: doc.location.getLongitude(),
-      }
-    })
+      };
+    });
 
-    q2 = query(collection(FireStoreDB, `chatrooms/`), where("user2", "==", `${user.uid}`))
-    querySnapshot2 = await getDocs(q2);
-    markerArr.concat(querySnapshot2.docs.map(doc => {
-      console.log(doc)
-      return {
-        lat: doc.location.getLatitude(),
-        lng: doc.location.getLongitude(),
-      }
-    }))
-    setMarkers(markerArr)
+    const q2 = query(
+      collection(FireStoreDB, `chatrooms/`),
+      where("user2", "==", `${user.uid}`)
+    );
+    const querySnapshot2 = await getDocs(q2);
+    markerArr.concat(
+      querySnapshot2.docs.map((doc) => {
+        console.log(doc);
+        return {
+          lat: doc.location.getLatitude(),
+          lng: doc.location.getLongitude(),
+        };
+      })
+    );
+    console.log("BRUH");
+    setMarkers(markerArr);
   };
 
   // Get your location
   getCurrPos();
-
-  
+  useEffect(() => {
+    fetchMarkers();
+  }, []);
 
   return (
     <GoogleMap
@@ -117,14 +119,14 @@ function Map() {
           />
         )
       )}
-      <MarkerF // YOUR MARKER
+      {/* <MarkerF // YOUR MARKER
         position={currPos}
         // For clicking marker (not currently working)
         onClick={() => {
           setSelected(currPos);
           console.log(currPos);
         }}
-      />
+      /> */}
     </GoogleMap>
   );
 }
