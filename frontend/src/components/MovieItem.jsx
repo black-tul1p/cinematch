@@ -4,7 +4,7 @@ import { FireStoreDB } from "../main";
 import { AuthContext } from "./AuthContext";
 import { useContext } from "react";
 
-export default function MovieItem({ title, year, type, poster }) {
+export default function MovieItem({ title, year, type, poster, handleOpen}) {
   const { user } = useContext(AuthContext);
 
   const handleClick = async (e) => {
@@ -27,6 +27,8 @@ export default function MovieItem({ title, year, type, poster }) {
       type: type,
       year: year,
     }).catch((error) => console.log(error))
+
+    handleOpen();
 
   };
 

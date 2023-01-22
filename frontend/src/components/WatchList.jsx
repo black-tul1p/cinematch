@@ -11,15 +11,40 @@ export default function WatchList() {
 
   const [value, loading, error] = useCollection(collection(FireStoreDB, `users/${user.uid}/movies`))
 
+  const imageStyle = {
+    height: "100px",
+    width: "100px",
+  };
+
+  const boxStyle = {
+    height: "150px",
+    width: "300px",
+  }
+
+
   return (
     <ol className="Watch-list">
       {loading && <span>Loading...</span>}
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {value && value.docs.map((doc) => {
-        return <li key={doc.id}>{doc.data().title}</li>
+        return <li key={doc.id} style = {boxStyle}>
+                <ul class="sub-menu" type="none">
+                  <li>
+                    {doc.data().title}
+                  </li>
+                  <li>
+                    <img src={doc.data().poster} style = {imageStyle} />
+                  </li>
+                  <li>
+                    {doc.data().year}
+                  </li>
+                </ul>
+               </li>
       })}
     </ol>
   )
+
+
 }
 
 

@@ -49,7 +49,7 @@ export default function SearchBar({ setShows }) {
                 {open ? (
                     <ul>
                         {titles?.map(element => {
-                            return <MovieItem title={element.Title} year={element.Year} type={element.Type} poster={element.Poster} />;
+                            return <MovieItem title={element.Title} year={element.Year} type={element.Type} poster={element.Poster} handleOpen = {handleOpen} />;
                         })}
                     </ul>
                 ) : null}
