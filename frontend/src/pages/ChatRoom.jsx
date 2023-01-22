@@ -19,7 +19,7 @@ function ChatMessage(props) {
 
   return (
     <div className={`ChatRoom-message-${messageClass}`}>
-      <p>{text}</p>
+      <p class="Chat-message">{text}</p>
     </div>
   );
 }
@@ -56,11 +56,12 @@ export default function ChatRoom({ roomID }) {
         <input
           type="text"
           value={inputVal}
+          class="Chat-input"
           onChange={(e) => {
             setInputVal(e.target.value);
           }}
         />
-        <button type="submit">🎡</button>
+        <button type="submit" class = "Submit-button">🎡</button>
       </form>
     </>
   );

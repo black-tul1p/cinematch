@@ -107,5 +107,9 @@ export default function MovieItem({ title, year, type, poster, handleOpen }) {
     handleOpen();
   };
 
-  return <button onClick={handleClick}>{title}</button>;
+  return (
+    <button className="Search-result" onClick={handleClick}>
+      {title}
+    </button>
+  );
 }
