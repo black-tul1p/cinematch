@@ -4,6 +4,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import SearchBar from "../components/SearchBar";
 import { AuthContext } from "../components/AuthContext";
 import { FireStoreDB } from "../main";
+import WatchList from "../components/WatchList";
 
 export default function Home() {
   // Hard coded for now
@@ -72,11 +73,12 @@ export default function Home() {
         </div>
         <div className="Home-box" style={{ gap: 0 }}>
           <h1>Watch List</h1>
-          <ol className="Watch-list">
+          {/* <ol className="Watch-list">
             {shows?.map(element => {
               return <li>{element}</li>;
             })}
-          </ol>
+          </ol> */}
+          <WatchList />
         </div>
       </div>
     </>

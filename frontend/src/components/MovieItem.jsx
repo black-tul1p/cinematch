@@ -7,8 +7,8 @@ import { useContext } from "react";
 export default function MovieItem({ title, year, type, poster }) {
   const { user } = useContext(AuthContext);
 
-  const handleClick = async () => {
-
+  const handleClick = async (e) => {
+    e.preventDefault();
     // first get the documentID for the specific user
     const usersRef = collection(FireStoreDB, "users");
     const q = query(usersRef, where("email", "==", "daksheshgupta03@gmail.com"))

@@ -13,9 +13,14 @@ export default function SearchBar({ setShows }) {
     };
     
 
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      submitQuery()
+    }
+
     // TODO: Update with actual API call
     const submitQuery = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
         console.log("query submitted");
         const url = `http://www.omdbapi.com/?s=${query}&apikey=cd6be92b`;
         console.log(url);
@@ -40,7 +45,7 @@ export default function SearchBar({ setShows }) {
     return (
         <div className="Search-bar">
             <form>
-                <input className="Search-input" type="text" placeholder="Search..." onSubmit={() => {submitQuery()}} onChange = {(event) => {setQuery(event.target.value);}}/>
+                <input className="Search-input" type="text" placeholder="Search..." onSubmit={handleSubmit} onChange = {(event) => {setQuery(event.target.value);}}/>
                 {open ? (
                     <ul>
                         {titles?.map(element => {

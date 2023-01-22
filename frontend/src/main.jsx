@@ -19,12 +19,12 @@ const firebaseConfig = {
 import Navigation from "./components/Navigation";
 import App from "./App";
 import Login from "./pages/Login";
-import Home from './pages/Home';
+import Home from "./pages/Home";
 import AuthProvider from "./components/AuthProvider";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-import './App.css';
-import './index.css'
+import "./App.css";
+import "./index.css";
 
 // Initialize Firebase
 const FirebaseApp = initializeApp(firebaseConfig);
@@ -39,14 +39,14 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/" element={<App />} />
           <Route path="/login" element={<Login />} />
           <Route
-            path="/watchlist"
+            path="/home"
             element={
               <ProtectedRoute>
+                <Home />
               </ProtectedRoute>
             }
           />
-          <Route path='/home' element={<Home />} />
-      </Routes>
+        </Routes>
       </BrowserRouter>
     </AuthProvider>
   </React.StrictMode>
