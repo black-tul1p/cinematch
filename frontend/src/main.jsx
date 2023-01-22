@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, orderBy } from "firebase/firestore";
 import "./index.css";
 import "./App.css";
 
@@ -22,6 +22,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import AuthProvider from "./components/AuthProvider";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ChatRoom from "./pages/ChatRoom";
 
 import "./App.css";
 import "./index.css";
@@ -46,6 +47,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               </ProtectedRoute>
             }
           />
+          <Route path="/chat" element={
+            <ProtectedRoute>
+              <ChatRoom />
+            </ProtectedRoute>
+          } />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
