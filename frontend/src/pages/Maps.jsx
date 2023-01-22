@@ -1,12 +1,21 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import {
   GoogleMap,
   useLoadScript,
   MarkerF,
   InfoWindow,
 } from "@react-google-maps/api";
+import { AuthContext } from "../components/AuthContext";
+import { useContext } from "react";
+import { query, collection, where, getDocs } from "firebase/firestore";
+
+import { FireStoreDB } from "../main";
+
 
 export default function Maps() {
+
+  
+
   // Load API
   const key = "AIzaSyB7Iv5iPStyCWSsPkPHQVjiZ0vPWG0aslc";
   const { isLoaded } = useLoadScript({
@@ -41,11 +50,39 @@ function Map() {
     }
   };
 
-  // TODO: Fetch chat room locations and update markers[]
-  const fetchMarkers = () => {};
+  
+
+  const fetchMarkers = async () => {
+
+    const { user } = useContext(AuthContext)
+
+    const q = query(collection(FireStoreDB, `chatrooms/`), where("user1", "==", `${user.uid}`))
+    const querySnapshot = await getDocs(q);
+
+    const markerArr = querySnapshot.docs.map(doc => {
+      console.log(doc)
+      return {
+        lat: doc.location.getLatitude(),
+        lng: doc.location.getLongitude(),
+      }
+    })
+
+    q2 = query(collection(FireStoreDB, `chatrooms/`), where("user2", "==", `${user.uid}`))
+    querySnapshot2 = await getDocs(q2);
+    markerArr.concat(querySnapshot2.docs.map(doc => {
+      console.log(doc)
+      return {
+        lat: doc.location.getLatitude(),
+        lng: doc.location.getLongitude(),
+      }
+    }))
+    setMarkers(markerArr)
+  };
 
   // Get your location
   getCurrPos();
+
+  
 
   return (
     <GoogleMap
