@@ -22,7 +22,7 @@ function ChatMessage(props) {
 }
 
 
-export default function ChatRoom() {
+export default function ChatRoom({ roomID }) {
 
   const { user } = useContext(AuthContext);``
 

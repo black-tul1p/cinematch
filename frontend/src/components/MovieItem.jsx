@@ -7,6 +7,7 @@ import {
   doc,
   addDoc,
   Firestore,
+  orderBy,
 } from "firebase/firestore";
 import { FireStoreDB } from "../main";
 import { GeoPoint } from "firebase/firestore";
@@ -50,8 +51,45 @@ export default function MovieItem({ title, year, type, poster, handleOpen }) {
         uid: user.uid,
         email: user.email,
         location: new GeoPoint(pos.coords.latitude, pos.coords.longitude),
+        isPaired: false,
       }).catch((error) => console.log(error));
     });
+
+    // We get a random user in the movies/title/users collection
+    // where the movie title is the one the user had just added
+    // and we create a chatroom for it.
+
+    const chatPairingQuery = query(
+      collection(FireStoreDB, `movies/${title}/users`),
+      where("isPaired", "==", false), limit(1)
+    );
+
+
+    const chatPairingQuerySnapshot = await getDocs(chatPairingQuery);
+    chatPairingQuerySnapshot.forEach(async doc => {
+      console.log(doc.id, " => ", doc.data());
+
+      // create a chatroom with logged in user, and the one just retrieved
+      await setDoc(doc(FireStoreDB, `chatrooms/${title}${user.uid}${doc.data().uid}`), {
+        movie: title,
+        user1: user.uid,
+        user2: doc.data().uid
+      })
+
+      // we have to set isPaired to true for the both users in the movie collection
+
+      await setDoc(doc(FireStoreDB, `movies/${title}/users/${user.uid}`), {
+        isPaired: true
+      }, { merge: true})
+
+      await setDoc(doc(FireStoreDB, `movies/${title}/users/${doc.data().uid}`), {
+        isPaired: true
+      }, { merge: true})
+
+    })
+
+    
+    
 
     handleOpen();
   };
