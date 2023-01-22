@@ -19,7 +19,7 @@ const firebaseConfig = {
 import Navigation from "./components/Navigation";
 import App from "./App";
 import Login from "./pages/Login";
-import Home from './pages/Home';
+import Home from "./pages/Home";
 import Maps from "./pages/Maps";
 import AuthProvider from "./components/AuthProvider";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -45,17 +45,23 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               </ProtectedRoute>
             }
           />
-          <Route path='/cinemap' element={
-            <ProtectedRoute>
-              <Maps />
-            </ProtectedRoute>
-            } />
-          <Route path="/chat" element={
-            <ProtectedRoute>
-              <ChatRoom />
-            </ProtectedRoute>
-          } />
-        </Routes
+          <Route
+            path="/cinemap"
+            element={
+              <ProtectedRoute>
+                <Maps />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/chat"
+            element={
+              <ProtectedRoute>
+                <ChatRoom />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
       </BrowserRouter>
     </AuthProvider>
   </React.StrictMode>
