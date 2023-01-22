@@ -1,9 +1,11 @@
 import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "./AuthContext";
+
 
 export default function Navigation() {
-  const logout = () => {
-    alert("Logged out!");
-  }
+
+  const { logout } = useContext(AuthContext);
 
   return (
     <>
