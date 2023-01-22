@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import { GeoPoint } from "firebase/firestore";
 
 import { AuthContext } from "./AuthContext";
 import { FireStoreDB } from "../main";
@@ -27,12 +28,19 @@ export default function AuthProvider({ children }) {
         // create a user in the database if doesnt exist
         // if exists, it overwrites
 
-        const docRef = await setDoc(doc(FireStoreDB, "users", user.uid), {
-          displayName: user.displayName,
-          photoURL: user.photoURL,
-          uid: user.uid,
-          email: user.email,
-        });
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition( async (position) => {
+            const docRef = await setDoc(doc(FireStoreDB, "users", user.uid), {
+              displayName: user.displayName,
+              photoURL: user.photoURL,
+              uid: user.uid,
+              email: user.email,
+              location: new GeoPoint(position.coords.latitude, position.coords.longitude),
+            });
+          });
+        }
+
+        
       })
       .catch((error) => {
         console.log(error);
