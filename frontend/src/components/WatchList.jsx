@@ -1,8 +1,8 @@
-import { useCollection } from 'react-firebase-hooks';
 import { useContext } from "react";
 import { collection, QuerySnapshot } from "firebase/firestore";
+import { useCollection } from 'react-firebase-hooks/firestore';
 
-import { AuthContext } from "./AuthContext";r
+import { AuthContext } from "./AuthContext";
 import { FireStoreDB } from '../main';
 
 export default function WatchList() {
@@ -13,8 +13,10 @@ export default function WatchList() {
 
   return (
     <ol className="Watch-list">
-      {value.docs.map((doc) => {
-        <li key={doc.id}>{doc.data().title}</li>
+      {loading && <span>Loading...</span>}
+      {error && <strong>Error: {JSON.stringify(error)}</strong>}
+      {value && value.docs.map((doc) => {
+        return <li key={doc.id}>{doc.data().title}</li>
       })}
     </ol>
   )

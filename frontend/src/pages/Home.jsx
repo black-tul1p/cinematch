@@ -51,7 +51,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    fetchWatched();
+    // fetchWatched();
   }, [])
 
   return (
