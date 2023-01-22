@@ -25,14 +25,8 @@ export default function Maps() {
 function Map() {
   const { user } = useContext(AuthContext);
   const [currPos, setCurrPos] = useState({}); // Your position on the map
-  const [selected, setSelected] = useState(null); // Selected Marker
+  // const [selected, setSelected] = useState(null); // Selected Marker
   const [markers, setMarkers] = useState([
-    // Chat room locations
-    { lat: 44, lng: -80 },
-    { lat: 87, lng: 80 },
-    { lat: 65, lng: -65 },
-    { lat: 44, lng: -87 },
-    { lat: 80, lng: 180 },
   ]);
 
   // Function that gets your location
@@ -55,10 +49,10 @@ function Map() {
     const querySnapshot = await getDocs(q);
 
     const markerArr = querySnapshot.docs.map((doc) => {
-      console.log(doc);
+      console.log(doc.data());
       return {
-        lat: doc.location.getLatitude(),
-        lng: doc.location.getLongitude(),
+        lat: doc.data().location.latitude,
+        lng: doc.data().location.longitude,
       };
     });
 
@@ -69,14 +63,15 @@ function Map() {
     const querySnapshot2 = await getDocs(q2);
     markerArr.concat(
       querySnapshot2.docs.map((doc) => {
-        console.log(doc);
+        console.log(doc.data());
         return {
-          lat: doc.location.getLatitude(),
-          lng: doc.location.getLongitude(),
+          lat: doc.data().location.latitude,
+          lng: doc.data().location.longitude,
         };
       })
     );
     console.log("BRUH");
+    console.log(markerArr)
     setMarkers(markerArr);
   };
 
@@ -113,7 +108,7 @@ function Map() {
             }}
             // For clicking markers (not currently working)
             onClick={() => {
-              setSelected(coord);
+              // setSelected(coord);
               console.log(coord);
             }}
           />
