@@ -1,15 +1,11 @@
-import { useMemo, useState, useEffect } from "react";
-import {
-  GoogleMap,
-  useLoadScript,
-  MarkerF,
-  InfoWindow,
-} from "@react-google-maps/api";
+import { useState, useEffect } from "react";
+import { GoogleMap, useLoadScript, MarkerF } from "@react-google-maps/api";
 import { AuthContext } from "../components/AuthContext";
 import { useContext } from "react";
 import { query, collection, where, getDocs } from "firebase/firestore";
 
 import { FireStoreDB } from "../main";
+import { useNavigate } from "react-router-dom";
 
 export default function Maps() {
   // Load API
@@ -39,6 +35,7 @@ export default function Maps() {
 }
 
 function Map({ currPos }) {
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   // const [selected, setSelected] = useState(null); // Selected Marker
   const [markers, setMarkers] = useState([]);
@@ -107,8 +104,7 @@ function Map({ currPos }) {
             }}
             // For clicking markers (not currently working)
             onClick={() => {
-              // setSelected(coord);
-              console.log(coord);
+              navigate("/chat");
             }}
           />
         )
@@ -117,7 +113,7 @@ function Map({ currPos }) {
         position={currPos}
         // For clicking marker (not currently working)
         onClick={() => {
-          setSelected(currPos);
+          navigate("/chat");
         }}
       />
     </GoogleMap>
