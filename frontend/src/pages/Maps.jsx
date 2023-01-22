@@ -26,7 +26,7 @@ export default function Maps() {
         if (newPos != currPos) setCurrPos(newPos);
       });
     }
-    console.log(currPos);
+    // console.log(currPos);
   };
   getCurrPos();
 
@@ -47,30 +47,27 @@ function Map({ currPos }) {
       collection(FireStoreDB, `chatrooms/`),
       where("user1", "==", `${user.uid}`)
     );
-    const querySnapshot = await getDocs(q);
 
-    const markerArr = querySnapshot.docs.map((doc) => {
-      console.log(doc.data());
-      return {
-        lat: doc.data().location.latitude,
-        lng: doc.data().location.longitude,
-      };
-    });
+    const markerArr = []
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach(doc => {
+      console.log(doc.id, "=>", doc.data())
+      markerArr.push({chatID: doc.id, lat: doc.data().location.latitude, lng: doc.data().location.longitude})
+    })
+
+  
 
     const q2 = query(
       collection(FireStoreDB, `chatrooms/`),
       where("user2", "==", `${user.uid}`)
     );
     const querySnapshot2 = await getDocs(q2);
-    markerArr.concat(
-      querySnapshot2.docs.map((doc) => {
-        console.log(doc.data());
-        return {
-          lat: doc.data().location.latitude,
-          lng: doc.data().location.longitude,
-        };
-      })
-    );
+    querySnapshot2.forEach(doc => {
+      console.log(doc.id, "=>", doc.data())
+      markerArr.push({chatID: doc.id, lat: doc.data().location.latitude, lng: doc.data().location.longitude})
+    })
+    
     // console.log("BRUH");
     // console.log(markerArr);
     setMarkers(markerArr);
@@ -104,18 +101,18 @@ function Map({ currPos }) {
             }}
             // For clicking markers (not currently working)
             onClick={() => {
-              navigate("/chat");
+              navigate("/chat/" + coord.chatID);
             }}
           />
         )
       )}
-      <MarkerF // YOUR MARKER
+      {/* <MarkerF // YOUR MARKER
         position={currPos}
         // For clicking marker (not currently working)
         onClick={() => {
           navigate("/chat");
         }}
-      />
+      /> */}
     </GoogleMap>
   );
 }

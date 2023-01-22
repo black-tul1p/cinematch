@@ -6,9 +6,12 @@ import {
   addDoc,
   serverTimestamp,
   limit,
+  getDoc,
+  doc,
 } from "firebase/firestore";
+import { useParams } from "react-router-dom";
 import { FireStoreDB } from "../main";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../components/AuthContext";
 
 function ChatMessage(props) {
@@ -26,13 +29,14 @@ function ChatMessage(props) {
 
 export default function ChatRoom({ roomID }) {
   const { user } = useContext(AuthContext);
-
+  const { chatID } = useParams();
   const [inputVal, setInputVal] = useState("");
+  const [roomName, setRoomName] = useState('')
 
   // TODO: this is hardcoded and needs to be changed
   const messagesRef = collection(
     FireStoreDB,
-    "chatrooms/fb1ySYptpvDmB6pUNzHb/messages"
+    `chatrooms/${chatID}/messages`
   );
   const q = query(messagesRef, orderBy("createdAt"), limit(30));
 
@@ -46,6 +50,19 @@ export default function ChatRoom({ roomID }) {
       uid: user.uid,
     });
   };
+
+  const getRoomData =  async () => {
+    const docSnap = await getDoc(doc(FireStoreDB, 'chatrooms', chatID))
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+    }
+    setRoomName(docSnap.data().movie + " Chat Room")
+  }
+
+  useEffect(() => {
+    getRoomData();
+  }, [])
+
 
   /*
   return (
@@ -72,10 +89,7 @@ export default function ChatRoom({ roomID }) {
     <>
       <div className="Home-content">
         <div className="Chat-name-box">
-          <h1>Chat Rooms</h1>
-          <div className="Chat-list">
-            <button className="Room-button">Mr. Robot</button>
-          </div>
+          <h1>{roomName}</h1>
         </div>
         <div className="Chat-room">
           <div className="Msg-list">

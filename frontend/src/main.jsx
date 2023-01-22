@@ -54,7 +54,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             }
           />
           <Route
-            path="/chat"
+            path="/chat/:chatID"
             element={
               <ProtectedRoute>
                 <ChatRoom />
