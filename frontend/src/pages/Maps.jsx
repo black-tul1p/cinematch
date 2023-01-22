@@ -7,8 +7,8 @@ import {
 } from "@react-google-maps/api";
 
 export default function Maps() {
+  // Load API
   const key = "AIzaSyB7Iv5iPStyCWSsPkPHQVjiZ0vPWG0aslc";
-
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: key,
   });
@@ -18,9 +18,10 @@ export default function Maps() {
 }
 
 function Map() {
-  const [currPos, setCurrPos] = useState({});
-  const [selected, setSelected] = useState(null);
+  const [currPos, setCurrPos] = useState({}); // Your position on the map
+  const [selected, setSelected] = useState(null); // Selected Marker
   const [markers, setMarkers] = useState([
+    // Chat room locations
     { lat: 44, lng: -80 },
     { lat: 87, lng: 80 },
     { lat: 65, lng: -65 },
@@ -28,7 +29,7 @@ function Map() {
     { lat: 80, lng: 180 },
   ]);
 
-  // TODO: Set to current user location
+  // Function that gets your location
   const getCurrPos = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -38,12 +39,12 @@ function Map() {
         });
       });
     }
-    // const center = useMemo(() => currPos, []);
-    // console.log(center);
   };
 
+  // TODO: Fetch chat room locations and update markers[]
   const fetchMarkers = () => {};
 
+  // Get your location
   getCurrPos();
 
   return (
@@ -63,20 +64,25 @@ function Map() {
           }}
         />
       )} */}
-      {markers.map((coord) => (
-        <MarkerF
-          position={{
-            lat: coord.lat,
-            lng: coord.lng,
-          }}
-          onClick={() => {
-            setSelected(coord);
-            console.log(coord);
-          }}
-        />
-      ))}
-      <MarkerF
+      {markers.map(
+        // CHAT MARKERS
+        (coord) => (
+          <MarkerF
+            position={{
+              lat: coord.lat,
+              lng: coord.lng,
+            }}
+            // For clicking markers (not currently working)
+            onClick={() => {
+              setSelected(coord);
+              console.log(coord);
+            }}
+          />
+        )
+      )}
+      <MarkerF // YOUR MARKER
         position={currPos}
+        // For clicking marker (not currently working)
         onClick={() => {
           setSelected(currPos);
           console.log(currPos);
