@@ -276,11 +276,22 @@ h1 {
     flex-direction: column;
     flex-wrap: wrap;
     column-gap: 1em;
-    background-color: f5eeed;
+    background-color: #f5eeed;
+    border: none;
     border-radius: 1em;
     margin-top: 0.3em;
     overflow: hidden;
     color: #171616
+}
+
+.Search-result {
+    border: 1px solid lightgray;
+    padding: 0.4em;
+}
+
+.Search-result:hover {
+    background-color: red;
+    color: white;
 }
 
 .submit-search {
