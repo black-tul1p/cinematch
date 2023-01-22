@@ -1,10 +1,11 @@
-import { useMemo, useState } from "react";
-import {
-  GoogleMap,
-  useLoadScript,
-  MarkerF,
-  InfoWindow,
-} from "@react-google-maps/api";
+import { useState, useEffect } from "react";
+import { GoogleMap, useLoadScript, MarkerF } from "@react-google-maps/api";
+import { AuthContext } from "../components/AuthContext";
+import { useContext } from "react";
+import { query, collection, where, getDocs } from "firebase/firestore";
+
+import { FireStoreDB } from "../main";
+import { useNavigate } from "react-router-dom";
 
 export default function Maps() {
   // Load API
@@ -12,47 +13,76 @@ export default function Maps() {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: key,
   });
-
-  if (!isLoaded) return <div>Loading...</div>;
-  return <Map />;
-}
-
-function Map() {
   const [currPos, setCurrPos] = useState({}); // Your position on the map
-  const [selected, setSelected] = useState(null); // Selected Marker
-  const [markers, setMarkers] = useState([
-    // Chat room locations
-    { lat: 44, lng: -80 },
-    { lat: 87, lng: 80 },
-    { lat: 65, lng: -65 },
-    { lat: 44, lng: -87 },
-    { lat: 80, lng: 180 },
-  ]);
 
   // Function that gets your location
   const getCurrPos = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        setCurrPos({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
+        const newPos = {
+          lat: Math.round(position.coords.latitude),
+          lng: Math.round(position.coords.longitude),
+        };
+        if (newPos != currPos) setCurrPos(newPos);
       });
     }
+    console.log(currPos);
   };
-
-  // TODO: Fetch chat room locations and update markers[]
-  const fetchMarkers = () => {};
-
-  // Get your location
   getCurrPos();
 
+  if (!isLoaded) return <div>Loading...</div>;
+  return <Map currPos={currPos} />;
+}
+
+function Map({ currPos }) {
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
+  // const [selected, setSelected] = useState(null); // Selected Marker
+  const [markers, setMarkers] = useState([]);
+  const center = currPos;
+  // const center = useMemo(() => currPos, []);
+
+  const fetchMarkers = async () => {
+    const q = query(
+      collection(FireStoreDB, `chatrooms/`),
+      where("user1", "==", `${user.uid}`)
+    );
+    const querySnapshot = await getDocs(q);
+
+    const markerArr = querySnapshot.docs.map((doc) => {
+      console.log(doc.data());
+      return {
+        lat: doc.data().location.latitude,
+        lng: doc.data().location.longitude,
+      };
+    });
+
+    const q2 = query(
+      collection(FireStoreDB, `chatrooms/`),
+      where("user2", "==", `${user.uid}`)
+    );
+    const querySnapshot2 = await getDocs(q2);
+    markerArr.concat(
+      querySnapshot2.docs.map((doc) => {
+        console.log(doc.data());
+        return {
+          lat: doc.data().location.latitude,
+          lng: doc.data().location.longitude,
+        };
+      })
+    );
+    // console.log("BRUH");
+    // console.log(markerArr);
+    setMarkers(markerArr);
+  };
+
+  // Get your location
+  useEffect(() => {
+    fetchMarkers();
+  }, []);
+
   return (
-    <GoogleMap
-      zoom={4.5}
-      center={currPos}
-      mapContainerClassName="Map-container"
-    >
+    <GoogleMap zoom={4.5} center={center} mapContainerClassName="Map-container">
       {/* {selected && (
         <InfoWindow
           onCloseClick={() => {
@@ -74,8 +104,7 @@ function Map() {
             }}
             // For clicking markers (not currently working)
             onClick={() => {
-              setSelected(coord);
-              console.log(coord);
+              navigate("/chat");
             }}
           />
         )
@@ -84,8 +113,7 @@ function Map() {
         position={currPos}
         // For clicking marker (not currently working)
         onClick={() => {
-          setSelected(currPos);
-          console.log(currPos);
+          navigate("/chat");
         }}
       />
     </GoogleMap>
