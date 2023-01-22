@@ -18,8 +18,7 @@ export default function Home() {
     "The Office",
   ]);
 
-  const { user } = useContext(AuthContext)
-
+  const { user } = useContext(AuthContext);
 
   // Hard coded for now
   // const [pop, setPop] = useState([]);
@@ -32,27 +31,24 @@ export default function Home() {
   ]);
 
   // TODO: Finish API and complete this
-  const fetchWatched =  async () => {
-      const q = query(collection(FireStoreDB, `users/${user.uid}/movies`))
-      const querySnapshot = await getDocs(q)
-      const showArr = []
-      querySnapshot.forEach((doc) => {
-        console.log(doc.id, " => ", doc.data());
-        showArr.push(doc.data().title)
-      })
+  const fetchWatched = async () => {
+    const q = query(collection(FireStoreDB, `users/${user.uid}/movies`));
+    const querySnapshot = await getDocs(q);
+    const showArr = [];
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, " => ", doc.data());
+      showArr.push(doc.data().title);
+    });
 
-      setShows(showArr)
-
+    setShows(showArr);
   };
 
   // TODO: Finish API and complete this
-  const fetchPopular = () => {
-
-  };
+  const fetchPopular = () => {};
 
   useEffect(() => {
     // fetchWatched();
-  }, [])
+  }, []);
 
   return (
     <>
@@ -60,14 +56,14 @@ export default function Home() {
         <div className="Home-box">
           <div>
             <h1>Collect More</h1>
-            <SearchBar/>
+            <SearchBar />
           </div>
           <div>
             <h1> Popular Right Now</h1>
             <div className="Pop-list">
-            {pop?.map(element => {
-              return <p>{element}</p>;
-            })}
+              {pop?.map((element) => {
+                return <p>{element}</p>;
+              })}
             </div>
           </div>
         </div>

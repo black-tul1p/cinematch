@@ -93,14 +93,15 @@ h1 {
 
 .Home-content {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 3fr;
 }
 
 .Home-box {
     display: grid;
-    grid-template-rows: 0.15fr 0.85fr;
+    grid-template-rows: 0.1fr 1fr;
     justify-content: center;
     text-align: center;
+    min-width: 300px;
     gap: 2em;
 }
 
@@ -131,15 +132,32 @@ h1 {
 /* Right Box */
 
 .Watch-list {
-    padding: 0;
-    color: white;
+    display: grid;
+    align-items: center;
+    gap: 1em;
+    padding: 0.35em 2em 2em;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1.5em;
-    padding-left: 0;
+    max-height: 70vh;
+    overflow-y: auto;
+}
 
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1em;
+@media (min-width: 1000px) {
+    .Watch-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 800px) {
+    .Watch-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 400px) {
+    .Watch-list {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
 
 .Movie-item {
@@ -150,7 +168,7 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    max-height: 24rem;
+    height: 19rem;
     max-width: 18rem;
     overflow: hidden;
     border: 2px solid lightgray;
@@ -159,6 +177,14 @@ h1 {
     transition: transform 0.15s;
     z-index: 0;
 }
+
+.Movie-item:before {
+    content: "";
+    display: block;
+    height: 0;
+    width: 0;
+    padding-bottom: calc(9/16 * 100%);
+  }
 
 .Movie-info {
     display: flex;
@@ -182,7 +208,7 @@ h1 {
 }
 
 #title-name {
-    font-size: 1.15em;
+    font-size: 1em;
 }
 
 #title-year {
@@ -191,17 +217,21 @@ h1 {
 }
 
 /*------------------------- Search Bar -------------------------*/
+.Search-bar {
+    width: 100%;
+}
 
 .Search-input {
-    width: 30vw;
+    /* width: 75%; */
     padding: 0.5em 1em;
     border: 1px solid white;
     border-radius: 20em 0px 0px 20em;
     background: var(--white-semi-bg);
     font-size: 1em;
+    color: white;
 }
 
-.Search-bar button {
+.Search-bar #submit-search {
     padding: 0.5em 0.5em 0.5em 0.25em;
     border: 1px solid white;
     border-radius: 0em 20px 20px 0em;
@@ -209,11 +239,33 @@ h1 {
     font-weight: bold;
 }
 
+.Dropdown {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    column-gap: 1em;
+    background-color: white;
+    border-radius: 1em;
+    margin-top: 0.3em;
+    overflow: hidden;
+}
+
+.Search-result {
+    height: 3.5em;
+    cursor: pointer;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.Search-result:hover {
+    background-color: rgba(255,255,255,0.85);
+}
+
 ::placeholder {
     color: white;
     opacity: 1; /* Firefox fix */
 }
 
+/*------------------------- Map Page -------------------------*/
 
 .Map-container {
     width: 100%;

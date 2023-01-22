@@ -24,11 +24,19 @@ export default function MovieItem({ title, year, type, poster, handleOpen }) {
     const usersRef = collection(FireStoreDB, "users");
     const q = query(
       usersRef,
+
       where("email", "==", "daksheshgupta03@gmail.com")
     );
     // const q = query(usersRef, where("email", "==", `${user.email}`));
 
     // Adds user to users/uid/movies
+    let docID = "";
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, " => ", doc.data());
+      docID = doc.id;
+    });
+
     await setDoc(doc(FireStoreDB, `users/${user.uid}/movies/` + title), {
       poster: poster,
       title: title,
@@ -62,38 +70,49 @@ export default function MovieItem({ title, year, type, poster, handleOpen }) {
 
     const chatPairingQuery = query(
       collection(FireStoreDB, `movies/${title}/users`),
-      where("isPaired", "==", false), limit(1)
+      where("isPaired", "==", false),
+      limit(1)
     );
 
-
     const chatPairingQuerySnapshot = await getDocs(chatPairingQuery);
-    chatPairingQuerySnapshot.forEach(async doc => {
+    chatPairingQuerySnapshot.forEach(async (doc) => {
       console.log(doc.id, " => ", doc.data());
 
       // create a chatroom with logged in user, and the one just retrieved
-      await setDoc(doc(FireStoreDB, `chatrooms/${title}${user.uid}${doc.data().uid}`), {
-        movie: title,
-        user1: user.uid,
-        user2: doc.data().uid
-      })
+      await setDoc(
+        doc(FireStoreDB, `chatrooms/${title}${user.uid}${doc.data().uid}`),
+        {
+          movie: title,
+          user1: user.uid,
+          user2: doc.data().uid,
+        }
+      );
 
       // we have to set isPaired to true for the both users in the movie collection`
 
-      await setDoc(doc(FireStoreDB, `movies/${title}/users/${user.uid}`), {
-        isPaired: true
-      }, { merge: true})
+      await setDoc(
+        doc(FireStoreDB, `movies/${title}/users/${user.uid}`),
+        {
+          isPaired: true,
+        },
+        { merge: true }
+      );
 
-      await setDoc(doc(FireStoreDB, `movies/${title}/users/${doc.data().uid}`), {
-        isPaired: true
-      }, { merge: true})
-
-    })
-
-    
-    
+      await setDoc(
+        doc(FireStoreDB, `movies/${title}/users/${doc.data().uid}`),
+        {
+          isPaired: true,
+        },
+        { merge: true }
+      );
+    });
 
     handleOpen();
   };
 
-  return <button onClick={handleClick}>{title}</button>;
+  return (
+    <button onClick={handleClick} className="Search-result">
+      {title}
+    </button>
+  );
 }
