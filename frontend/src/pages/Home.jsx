@@ -55,7 +55,7 @@ export default function Home() {
       <div className="Home-content">
         <div className="Home-box">
           <div>
-            <h1 className>Collect More</h1>
+            <h1 className>Add to Collection</h1>
             <SearchBar />
           </div>
           <div>
